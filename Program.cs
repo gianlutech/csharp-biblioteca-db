@@ -7,18 +7,32 @@ namespace csharp_biblioteca_db // Note: actual namespace depends on the project 
         static void Main(string[] args)
         {
             Biblioteca b = new Biblioteca("Civica");
-            //b.AggiungiScaffale("s001");
-            //b.AggiungiScaffale("s002");
-            //b.AggiungiScaffale("s003");
-            b.ScaffaliBiblioteca.ForEach(item => Console.WriteLine(item.Numero));
-            //Ed ora gli autori e i libri
-            //il libro lo mettiamo in db direttamente dentro la new libro. Gli autori con la Autori.Add!
-            Autore a3 = new Autore("Nome 3", "Cognome 3");
-            Libro l2 = new Libro("ISBN2", "Titolo 2", 2009, "Storia", 130, "s001");  //add libro e documento to db
-            l2.Autori.Add(a3);
+
+            // b.AggiungiScaffale("s001"); dati già inseriti quindi ho commentato la riga
+            // b.AggiungiScaffale("s002");
+            // b.AggiungiScaffale("s003");
+
+            b.ScaffaliBiblioteca.ForEach(item => Console.WriteLine(item.Numero));  //stampa la lista degli scaffali
+
+
+            //passiamo all'inserimento dei libri e agli autori
+
+            List<Autore> lAutoriLibro = new List<Autore>();
+
+            Autore AutoreMioLibro = new Autore("Gianni", "Rivera", "email@email.it");
+
+            lAutoriLibro.Add(AutoreMioLibro);
+
+
+            b.AggiungiLibro(2, "Promessi Sposi", "Romanzo", 235, "s001", lAutoriLibro);
+
+
+
+            // inizio parte dell'interfaccia
 
             Console.WriteLine("Lista operazione: ");
             Console.WriteLine("\t1 : cercaLibro per Autore ");
+            Console.WriteLine("\t2 : Inserisci scaffale ");
             Console.WriteLine("Cosa vuoi fare ?");
 
             string sAppo = Console.ReadLine();
@@ -27,6 +41,7 @@ namespace csharp_biblioteca_db // Note: actual namespace depends on the project 
 
             {
                 if (sAppo == "1") b.GestisciOperazioneBiblioteca(1);
+                else if (sAppo == "2") b.GestisciOperazioneBiblioteca(2);
             }
 
             /*
