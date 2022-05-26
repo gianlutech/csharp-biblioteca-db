@@ -38,11 +38,11 @@ namespace csharp_biblioteca_db
 
         }
 
-        public void AggiungiLibro(int codice, string titolo, string settore, int pagine, string scaffale, List<Autore> listaAutori)
+        public void AggiungiLibro(long codice, string titolo, string settore, int pagine, string scaffale, List<Autore> listaAutori)
         {
             Libro MioLibro = new(codice, titolo, settore, pagine, scaffale);
             MioLibro.Stato = Stato.Disponibile;
-            DB.AggiungiLibro(MioLibro, listaAutori);
+            DB.libroAdd(MioLibro, listaAutori);
 
         }
 
@@ -52,14 +52,40 @@ namespace csharp_biblioteca_db
             string sAppo;
             switch (iCodiceOperazione)
             {
-                case 1: //Da modificare a seguito l'inserimento di Libro /Documento/ Autori in db
-                    Console.WriteLine("inserisci autore");
-                    sAppo = Console.ReadLine();
-                    lResult = SearchByAutore(sAppo);
-                    if (lResult == null)
-                        return 1;   //da implementare uscita da inserimento autore
-                    else
-                        StampaListaDocumenti(lResult);
+                case 1: //Da implementare i controlli nell'inserimento e conversione in int
+                        //e aggiornare repo su Vinc-78
+
+                    Console.WriteLine("inserisci i dati o l'inserimento non funziona");
+                    Console.WriteLine("inserisci nome autore :");
+                    string nomeAutore = Console.ReadLine();
+                    Console.WriteLine("inserisci cognome autore :");
+                    string cognomeAutore = Console.ReadLine();
+                    Console.WriteLine("inserisci email autore :");
+                    string emailAutore = Console.ReadLine();
+                    Console.WriteLine("-------------------");
+                    Console.WriteLine("inserisci codice libro :");
+                    string scodiceLibro = Console.ReadLine();
+                    int codiceLibro = Int32.Parse(scodiceLibro);
+                    Console.WriteLine("inserisci titolo libro :");
+                    string titoloLibro = Console.ReadLine();
+                    Console.WriteLine("inserisci settore libro :");
+                    string settoreLibro = Console.ReadLine();
+                    Console.WriteLine("inserisci numero pagine libro :");
+                    string spagLibro = Console.ReadLine();
+                    int pagLibro = Int32.Parse(spagLibro);
+                    Console.WriteLine("inserisci numero scaffale libro :");
+                    string scaffaleLibro = Console.ReadLine();
+
+
+                    Biblioteca b = new Biblioteca("Civica");
+                    List<Autore> lAutoriLibro = new List<Autore>();
+                    Autore AutoreMioLibro = new Autore(nomeAutore, cognomeAutore, emailAutore);
+                    lAutoriLibro.Add(AutoreMioLibro);
+                    b.AggiungiLibro(codiceLibro, titoloLibro, settoreLibro, pagLibro, scaffaleLibro, lAutoriLibro);
+
+                    Console.WriteLine("----------------------");
+                    Console.WriteLine("dati inseriti correttamente");
+
                     break;
 
                 case 2:
@@ -80,47 +106,5 @@ namespace csharp_biblioteca_db
         }
 
 
-        public void StampaListaDocumenti(List<Documento> lListDoc)
-        {
-            // da implementare  
-        }
-
-        public List<Documento> SearchByCodice(string Codice)
-        {
-            Console.WriteLine("Metodo da implementare");
-            return null;
-        }
-
-        public List<Documento> SearchByTitolo(string Titolo)
-        {
-            Console.WriteLine("Metodo da implementare");
-            return null;
-
-        }
-
-        public List<Documento> SearchByAutore(string Titolo)
-        {
-            Console.WriteLine("Metodo da implementare");
-
-            // connetti al db
-            // fare una query, quindi select titolo.scaffale, stato , tipo  from 
-            // documenti, autori_documenti,  inner join
-            // stampa 
-
-            return null;
-
-        }
-
-        public List<Prestito> SearchPrestiti(string Numero)
-        {
-            Console.WriteLine("Metodo da implementare");
-            return null;
-        }
-
-        public List<Prestito> SearchPrestiti(string Nome, string Cognome)
-        {
-            Console.WriteLine("Metodo da implementare");
-            return null; ;
-        }
     }
 }
